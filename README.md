@@ -1,6 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/mojos_api_madhouse.svg)](https://crates.io/crates/mojos_api_madhouse)
 ![Crates.io](https://img.shields.io/crates/l/mojos_api_madhouse)
 [![wakatime](https://wakatime.com/badge/user/fd57ff6b-f3f1-4957-b9c6-7e09bc3f0559/project/d5b792fb-32c4-47cd-9d90-dc3c21064f87.svg)](https://wakatime.com/badge/user/fd57ff6b-f3f1-4957-b9c6-7e09bc3f0559/project/d5b792fb-32c4-47cd-9d90-dc3c21064f87)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/BuyMyMojo/mojos_api_madhouse/Rust/main)
 
 # mojos_api_madhouse
 

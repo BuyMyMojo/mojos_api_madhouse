@@ -92,8 +92,8 @@ mod tests {
             None
         ));
 
-        let error: AnimechanResponse = res.unwrap().first().expect("There should always be an output!").to_owned();
+        let err: AnimechanResponse = res.unwrap().first().expect("There should always be an output!").to_owned();
 
-        assert!(error.error.is_some());
+        assert!(err.error.is_some());
     }
 }
