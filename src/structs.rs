@@ -1,3 +1,8 @@
+//! # All return structs used by my functions
+//! 
+//! This module contains the structs that hold the return objects of the APIs.
+//! 
+
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
 
@@ -5,7 +10,7 @@ use serde_derive::Serialize;
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AnimechanResponse {
-    /// A list of all anime titles, only used when AnimechanRout::ListAllAvailableAnime is used.
+    /// A list of all anime titles, only used when [AnimechanRout::ListAllAvailableAnime](AnimechanRout::ListAllAvailableAnime) is used.
     pub anime_list: Option<Vec<String>>,
     /// Anime the quote is from.
     pub anime: Option<String>,

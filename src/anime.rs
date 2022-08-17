@@ -1,3 +1,11 @@
+//! # Anime related APIs
+//! 
+//! This module contains the functions for apis generally related to Anime/Manga
+//! 
+//! - animechan
+//!     - An API for quickly grabbing quotes from anime. You can search by anime and character or just get random quotes
+//! 
+
 use crate::structs::{AnimechanResponse, AnimechanRout};
 
 /// I'm literally taking this from the poise example bot... I truthfully don't understand Result<> or proper error reporting yet.
@@ -10,6 +18,57 @@ type Error = Box<dyn std::error::Error + Send + Sync>;
 /// * `rout` - Define rout of API to call.
 /// * `search_query` - Query to use when searching by anime or character, otherwise should be None.
 /// * `page` - When searching by anime or character get a specific page of results.
+/// 
+/// # Examples
+/// ```
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::anime::animechan;
+/// 
+/// async fn rand_quote() {
+/// 
+/// let output = animechan(AnimechanRout::Random, None, None).await;
+/// 
+/// let quote: AnimechanResponse = output.expect("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+/// 
+/// println!("Your random quote: {}", quote.quote.unwrap_or(quote.error.unwrap()));
+/// }
+/// ```
+/// 
+/// ```
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::anime::animechan;
+///
+/// async fn debug_ten_rand_quotes() {
+/// 
+/// let output = animechan(AnimechanRout::Quotes, None, None).await;
+/// 
+/// let quotes: Vec<AnimechanResponse> = output.expect("No response from AnimeChan API").to_owned();
+/// 
+/// println!("List of quotes: {:?}", quotes);
+/// 
+/// }
+/// ```
+/// 
+/// # Error handeling example
+/// ```
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::anime::animechan;
+/// 
+/// async fn error_quote_by_anime() {
+/// 
+///     let output = animechan(AnimechanRout::QuotesByAnime, Some("This anime isn't real!!".to_string()), None).await;
+/// 
+///     let quotes: Vec<AnimechanResponse> = output.expect("No response from AnimeChan API").to_owned();
+/// 
+///     if quotes.first().unwrap().error.is_some() {
+///         // If you know how to do this cleaner or without the clone() please open a PR!
+///         println!("Error from API: {}", quotes.first().unwrap().error.clone().unwrap());
+///     } else {
+///         println!("List of quotes from your anime: {:?}", quotes);
+///     }
+/// }
+/// ```
+/// 
 #[cfg(feature = "anime")]
 pub async fn animechan(
     rout: AnimechanRout,

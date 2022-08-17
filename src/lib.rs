@@ -1,3 +1,5 @@
+#![doc(issue_tracker_base_url = "https://github.com/BuyMyMojo/mojos_api_madhouse/issues/")]
+
 //! This is a library I made so I can intergreate more APIs in my discord bot's easily.
 //!
 //! it is asynchronous and powered by Reqwest.
