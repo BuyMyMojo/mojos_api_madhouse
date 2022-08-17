@@ -2,7 +2,7 @@ use serde_derive::Deserialize;
 use serde_derive::Serialize;
 
 #[cfg(feature = "anime")]
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AnimechanResponse {
     /// A list of all anime titles, only used when AnimechanRout::ListAllAvailableAnime is used.
@@ -22,18 +22,6 @@ pub struct AnimechanResponse {
 #[cfg(feature = "anime")]
 #[derive(Deserialize, Serialize)]
 struct AnimeList(pub Vec<String>);
-
-impl Default for AnimechanResponse {
-    fn default() -> AnimechanResponse {
-        AnimechanResponse {
-            anime_list: None,
-            anime: None,
-            character: None,
-            quote: None,
-            error: None,
-        }
-    }
-}
 
 #[cfg(feature = "anime")]
 #[derive(Debug, Clone, PartialEq)]

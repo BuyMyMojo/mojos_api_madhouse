@@ -41,7 +41,7 @@ pub async fn animechan(
             query.push_str("available/anime");
 
             // ? There is probably a way to use query in here without cloning right?
-            let body = reqwest::get(query.clone())
+            let body = reqwest::get(query)
                 .await
                 .expect("Failed to get request")
                 .json::<Vec<String>>()
@@ -58,15 +58,15 @@ pub async fn animechan(
         AnimechanRout::QuotesByAnime => {
             query.push_str("quotes/anime?title=");
             query.push_str(&urlencoding::encode(
-                &search_query
-                    .unwrap_or("Jojo's bizarre adventure".to_string())
+                search_query
+                    .unwrap_or_else(|| "Jojo's bizarre adventure".to_string())
                     .as_str(),
             ));
             query.push_str(format!("&page={}", page.unwrap_or(1)).as_str());
             let body = reqwest::get(query).await?;
             let body_text = body.text().await?;
 
-            if body_text.starts_with("[") {
+            if body_text.starts_with('[') {
                 let body_json: Vec<AnimechanResponse> = serde_json::from_str(&body_text)?;
                 Some(body_json)
             } else {
@@ -77,15 +77,15 @@ pub async fn animechan(
         AnimechanRout::QuotesByCharacter => {
             query.push_str("quotes/character?name=");
             query.push_str(&urlencoding::encode(
-                &search_query
-                    .unwrap_or("Jotaro Kujo".to_string())
+                search_query
+                    .unwrap_or_else(|| "Jotaro Kujo".to_string())
                     .as_str(),
             ));
             query.push_str(format!("&page={}", page.unwrap_or(1)).as_str());
             let body = reqwest::get(query).await?;
             let body_text = body.text().await?;
 
-            if body_text.starts_with("[") {
+            if body_text.starts_with('[') {
                 let body_json: Vec<AnimechanResponse> = serde_json::from_str(&body_text)?;
                 Some(body_json)
             } else {
