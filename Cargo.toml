@@ -10,8 +10,9 @@ readme = "README.md"
 documentation = "https://docs.rs/mojos_api_madhouse/"
 
 [features]
-default = ["anime"]
+default = ["anime", "memes"]
 anime = []
+memes = []
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
