@@ -9,11 +9,15 @@
 //! use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
 //! use mojos_api_madhouse::anime::animechan;
 //! 
-//! let output = animechan(AnimechanRout::Random, None, None).await?;
+//! async fn rand_quote() {
 //! 
-//! let quote: AnimechanResponse = output.except("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+//! let output = animechan(AnimechanRout::Random, None, None).await;
 //! 
-//! println!("Your random quote: {}", quote.quote.unwrap_or(error.error.unwrap()));
+//! let quote: AnimechanResponse = output.expect("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+//! 
+//! println!("Your random quote: {}", quote.quote.unwrap_or(quote.error.unwrap()));
+//! 
+//! }
 //! 
 //! ```
 
