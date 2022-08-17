@@ -6,6 +6,9 @@
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
 
+/// I'm literally taking this from the poise example bot... I truthfully don't understand Result<> or proper error reporting yet.
+pub type Error = Box<dyn std::error::Error + Send + Sync>;
+
 #[cfg(feature = "anime")]
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

@@ -6,10 +6,7 @@
 //!     - An API for quickly grabbing quotes from anime. You can search by anime and character or just get random quotes
 //! 
 
-use crate::structs::{AnimechanResponse, AnimechanRout};
-
-/// I'm literally taking this from the poise example bot... I truthfully don't understand Result<> or proper error reporting yet.
-type Error = Box<dyn std::error::Error + Send + Sync>;
+use crate::structs::{AnimechanResponse, AnimechanRout, Error};
 
 /// Get anime quotes from <https://animechan.vercel.app>
 ///
