@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use mojos_api_madhouse::{animechan, AnimechanRout};
+    use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+    use mojos_api_madhouse::anime::animechan;
 
     #[test]
     fn tests_can_at_least_run() {
@@ -18,28 +19,28 @@ mod tests {
     #[cfg(feature = "anime")]
     fn animechan_random() {
         let res = aw!(animechan(AnimechanRout::Random, None, None));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
     
     #[test]
     #[cfg(feature = "anime")]
     fn animechan_quotes() {
         let res = aw!(animechan(AnimechanRout::Quotes, None, None));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
     #[cfg(feature = "anime")]
     fn animechan_anime_list() {
         let res = aw!(animechan(AnimechanRout::ListAllAvailableAnime, None, None));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
     #[cfg(feature = "anime")]
     fn animechan_quote_by_anime_none() {
         let res = aw!(animechan(AnimechanRout::QuotesByAnime, None, None));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
@@ -50,7 +51,7 @@ mod tests {
             Some("Ghost in the shell".to_string()),
             None
         ));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
@@ -61,17 +62,14 @@ mod tests {
             Some("Ghost in the shell season 69".to_string()),
             None
         ));
-        assert_eq!(
-            true,
-            res.unwrap().first().expect("Result vec empty!").error.is_some()
-        );
+        assert!(res.unwrap().first().expect("There should always be an output!").error.is_some());
     }
 
     #[test]
     #[cfg(feature = "anime")]
     fn animechan_quote_by_character_none() {
         let res = aw!(animechan(AnimechanRout::QuotesByCharacter, None, None));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
@@ -82,7 +80,7 @@ mod tests {
             Some("Edward Elric".to_string()),
             None
         ));
-        assert_eq!(None, res.unwrap().first().expect("Result vec empty!").error);
+        assert_eq!(None, res.unwrap().first().expect("There should always be an output!").error);
     }
 
     #[test]
@@ -93,9 +91,9 @@ mod tests {
             Some("Lord Vader".to_string()),
             None
         ));
-        assert_eq!(
-            true,
-            res.unwrap().first().expect("Result vec empty!").error.is_some()
-        );
+
+        let error: AnimechanResponse = res.unwrap().first().expect("There should always be an output!").to_owned();
+
+        assert!(error.error.is_some());
     }
 }

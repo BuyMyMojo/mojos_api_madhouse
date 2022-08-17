@@ -6,6 +6,7 @@ authors = ["BuyMyMojo <hello@buymymojo.net>"]
 description = "A collaction of simple functions to easily use a large ammount of random APIs!"
 license = "Apache-2.0"
 repository = "https://github.com/BuyMyMojo/mojos_api_madhouse"
+readme = "README.md"
 
 [features]
 default = ["anime"]
