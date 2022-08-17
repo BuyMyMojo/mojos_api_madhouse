@@ -26,3 +26,11 @@ urlencoding = "2.1.0"
 [dev-dependencies]
 tokio-test = "0.4.2"
 criterion = "*"
+
+[[bench]]
+name = "animechan"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "thin"
