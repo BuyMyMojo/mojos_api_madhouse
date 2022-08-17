@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -18,6 +15,25 @@
                 "filter": {
                     "name": "mojos_api_madhouse",
                     "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'animechan'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=animechan",
+                    "--package=mojos_api_madhouse"
+                ],
+                "filter": {
+                    "name": "animechan",
+                    "kind": "test"
                 }
             },
             "args": [],
