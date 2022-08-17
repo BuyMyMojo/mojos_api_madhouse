@@ -1,0 +1,22 @@
+[package]
+name = "mojos_api_madhouse"
+version = "0.1.0"
+edition = "2021"
+authors = ["BuyMyMojo <hello@buymymojo.net>"]
+description = "A collaction of simple functions to easily use a large ammount of random APIs!"
+license = "Apache-2.0"
+
+[features]
+default = ["anime"]
+anime = []
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.11.11", features = ["json"] }
+serde = { version = "1.0.143", features = ["derive"] }
+serde_derive = "1.0.143"
+serde_json = "1.0.83"
+tokio = { version = "1.20.1", features = ["full"] }
+tokio-test = "0.4.2"
+urlencoding = "2.1.0"
