@@ -18,51 +18,54 @@ use crate::structs::{AnimechanResponse, AnimechanRout, Error};
 /// 
 /// # Examples
 /// ```
-/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse, Error};
 /// use mojos_api_madhouse::anime::animechan;
 /// 
-/// async fn rand_quote() {
+/// async fn rand_quote() -> Result<(), Error> {
 /// 
 /// let output = animechan(AnimechanRout::Random, None, None).await;
 /// 
-/// let quote: AnimechanResponse = output.expect("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+/// let quote: AnimechanResponse = output?.first().unwrap(/* The vec should never return empty */).to_owned();
 /// 
-/// println!("Your random quote: {}", quote.quote.unwrap_or(quote.error.unwrap()));
+/// println!("Your random quote: {}", quote.quote.unwrap_or_else(|| quote.error.unwrap(/* If it gets to this then there should 100% be something in here */)));
+/// 
+/// Ok(())
 /// }
 /// ```
 /// 
 /// ```
-/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse, Error};
 /// use mojos_api_madhouse::anime::animechan;
 ///
-/// async fn debug_ten_rand_quotes() {
+/// async fn debug_ten_rand_quotes() -> Result<(), Error> {
 /// 
 /// let output = animechan(AnimechanRout::Quotes, None, None).await;
 /// 
-/// let quotes: Vec<AnimechanResponse> = output.expect("No response from AnimeChan API").to_owned();
+/// let quotes: Vec<AnimechanResponse> = output?.to_owned();
 /// 
 /// println!("List of quotes: {:?}", quotes);
 /// 
+/// Ok(())
 /// }
 /// ```
 /// 
 /// # Error handeling example
 /// ```
-/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+/// use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse, Error};
 /// use mojos_api_madhouse::anime::animechan;
 /// 
-/// async fn error_quote_by_anime() {
+/// async fn error_quote_by_anime() -> Result<(), Error> {
 /// 
 ///     let output = animechan(AnimechanRout::QuotesByAnime, Some("This anime isn't real!!".to_string()), None).await;
 /// 
-///     let quotes: Vec<AnimechanResponse> = output.expect("No response from AnimeChan API").to_owned();
+///     let quotes: Vec<AnimechanResponse> = output?.to_owned();
 /// 
-///     if quotes.first().unwrap().error.is_some() {
-///         // If you know how to do this cleaner or without the clone() please open a PR!
-///         println!("Error from API: {}", quotes.first().unwrap().error.clone().unwrap());
-///     } else {
-///         println!("List of quotes from your anime: {:?}", quotes);
+///     match &quotes.first().unwrap().error {
+///         Some(err) => {println!("Error from API: {}", err)},
+///         None => {println!("List of quotes from your anime: {:?}", quotes)},
 ///     }
+/// 
+/// Ok(())
 /// }
 /// ```
 /// 

@@ -8,23 +8,29 @@
 //!
 //! # Examples
 //! ```
-//! use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+//! use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse, Error};
 //! use mojos_api_madhouse::anime::animechan;
 //! 
-//! async fn rand_quote() {
+//! async fn rand_quote() -> Result<(), Error> {
 //! 
 //! let output = animechan(AnimechanRout::Random, None, None).await;
 //! 
-//! let quote: AnimechanResponse = output.expect("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+//! let quote: AnimechanResponse = output?.first().unwrap(/* The vec should never return empty */).to_owned();
 //! 
-//! println!("Your random quote: {}", quote.quote.unwrap_or(quote.error.unwrap()));
+//! println!("Your random quote: {}", quote.quote.unwrap_or_else(|| quote.error.unwrap(/* If it gets to this then there should 100% be something in here */)));
 //! 
+//! Ok(())
 //! }
 //! 
 //! ```
+//! 
+//! 
 
 pub mod structs;
 
 #[cfg(feature = "anime")]
 pub mod anime;
+
+#[cfg(feature = "memes")]
+pub mod memes;
 
