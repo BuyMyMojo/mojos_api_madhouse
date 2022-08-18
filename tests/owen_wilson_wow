@@ -1,0 +1,10 @@
+#[cfg(test)]
+mod tests {
+    use mojos_api_madhouse::structs::{Wows, Wow, WowVideo};
+    use mojos_api_madhouse::memes::owen_wilson_wow;
+
+    #[test]
+    fn tests_can_at_least_run() {
+        assert_eq!(4, 4);
+    }
+}
