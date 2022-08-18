@@ -14,13 +14,17 @@ My main goal is to make an easy to use library for many things and have features
 ## Examples
 
 ```rust
-use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse};
+use mojos_api_madhouse::structs::{AnimechanRout, AnimechanResponse, Error};
 use mojos_api_madhouse::anime::animechan;
 
-let output = animechan(AnimechanRout::Random, None, None).await?;
+async fn rand_quote() -> Result<(), Error> {
 
-let quote: AnimechanResponse = output.except("No response from AnimeChan API").first().expect("There should always be an output!").to_owned();
+let output = animechan(AnimechanRout::Random, None, None).await;
 
-println!("Your random quote: {}", quote.quote.unwrap_or(error.error.unwrap()));
+let quote: AnimechanResponse = output?.first().unwrap(/* The vec should never return empty */).to_owned();
 
+println!("Your random quote: {}", quote.quote.unwrap_or_else(|| quote.error.unwrap(/* If it gets to this then there should 100% be something in here */)));
+
+Ok(())
+}
 ```
